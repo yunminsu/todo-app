@@ -1,24 +1,46 @@
 import logo from './logo.svg';
 import './App.css';
+import TodoTemplate from './components/TodoTemplate';
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
+import TodoInsert from './components/TodoInsert';
+import TodoList from './components/TodoList';
+import { useRef, useState } from 'react';
+import { v4 as uuidv4 } from "uuid";
+
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+
+  body {
+    background: black;
+  }
+`;
+
+
 
 function App() {
+  const [todos, setTodos] = useState([]);
+  
+  const nextId = useRef(1);
+  
+  const handleInsert = (text) => {
+    const todo = {
+      id: uuidv4(),
+      text
+    };
+    setTodos(todos.concat(todo));
+
+    nextId.current += 1;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <TodoTemplate>
+        <TodoInsert onInsert={handleInsert}/>
+        <TodoList todos={todos} />
+      </TodoTemplate>
+    </>
   );
 }
 
