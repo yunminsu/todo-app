@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdAdd, MdDateRange } from 'react-icons/md'
-import Button from './ui/Button';
+import TodoList from './TodoList';
 
 const TodoInserContainer = styled.div`
   max-width: 300px;
@@ -43,7 +43,6 @@ function TodoInsert(props) {
 
   return (
     <TodoInserContainer>
-      <Button title={<MdDateRange />} />
       <TodoInserWrapper onSubmit={handleSubmit} >
         <StyledInput 
           type='text'
@@ -51,8 +50,7 @@ function TodoInsert(props) {
           value={value}
           onChange={handleValueChange}
         />
-        <textarea></textarea>
-        <Button type='submit' title={<MdAdd />} disabled={isDisabled}/>  
+        <textarea>{<MdAdd />}</textarea>
       </TodoInserWrapper>
     </TodoInserContainer>
   );

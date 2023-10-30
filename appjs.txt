@@ -1,10 +1,12 @@
+import logo from './logo.svg';
 import './App.css';
+import TodoTemplate from './components/TodoTemplate';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
 import { useRef, useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
-import TodoHeader from './components/TodoHeader';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -16,15 +18,14 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const [todos, setTodos] = useState([]);
-
+  
   const nextId = useRef(1);
-
-  const handleAdd = (value) => {
+  
+  const handleInsert = (text) => {
     const todo = {
       id: uuidv4(),
-      ㅈvalue,
-    }
-
+      text
+    };
     setTodos(todos.concat(todo));
 
     nextId.current += 1;
@@ -33,11 +34,10 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <TodoHeader onAdd={handleAdd} >
-        <TodoList todos={todos} />  
-      </TodoHeader>
+      <TodoTemplate>
+        <TodoInsert onInsert={handleInsert}/>
+        <TodoList todos={todos} />
+      </TodoTemplate>
     </>
   );
 }
-
-export default App;

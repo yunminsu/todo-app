@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import TodoInsert from './TodoInsert';
 import { MdDateRange, MdOutlineModeEdit } from 'react-icons/md';
-import TodoList from './TodoList';
+import TodoAdd from './TodoAdd';
 
-const TodoTemplateWrapper = styled.div`
+// TodoHeader 영역
+const TodoHeaderWrapper = styled.div`
   max-width: 768px;
   margin: 0 auto;
   margin-top: 6rem;
-  overflow: hidden;
+  /* overflow: hidden; */
   `;
 
 const AppContainer = styled.div`
@@ -45,27 +45,25 @@ const StyledButton = styled.button`
   margin-right: 5px;
 `;
 
-function TodoTemplate(props) {
+function TodoHeader(props) {
   const [isTodoInsert, setIsTodoInsert] = useState(false);
 
-  const handleWriteClick = () => {
-    setIsTodoInsert(true)
-  }
+  const { onAdd } = props;
 
-  const handleWrite = () => {
-    setIsTodoInsert(prev => !prev);
+  const handleCreateClick = () => {
+    setIsTodoInsert(!isTodoInsert)
   }
 
   return (
-    <TodoTemplateWrapper>
+    <TodoHeaderWrapper>
       <AppContainer>
         <AppTitle>
           My Todo List
+          {isTodoInsert && <TodoAdd onAdd={onAdd}/>}
         </AppTitle>
         <AppButton>
-          <StyledButton onClick={handleWriteClick} >
+          <StyledButton onClick={handleCreateClick}>
             {<MdOutlineModeEdit />}
-            {isTodoInsert && <TodoInsert />}
           </StyledButton>
           <StyledButton >
             {<MdDateRange />}
@@ -73,8 +71,8 @@ function TodoTemplate(props) {
         </AppButton>
       </AppContainer>
       {props.children}
-    </TodoTemplateWrapper>
+    </TodoHeaderWrapper>
   );
 }
 
-export default TodoTemplate;
+export default TodoHeader;

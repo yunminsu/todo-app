@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from './ui/Button';
 import { MdStarOutline } from 'react-icons/md';
 
 const TodoListItemWrapper = styled.div`
   width: calc(30%);
-  margin: 10px;
+  margin: 10px 0 0 18px;
   height: 200px;
   display: inline-block;
   background: #f3f781;
+  word-break: break-all;
+  overflow-y: auto;
+
+  p {
+    padding: 10px;
+  }
   `;
 
   const TodoListItemContainer = styled.div`
@@ -40,20 +45,17 @@ const TodoListItemWrapper = styled.div`
   } 
   `;
 
-
-
-
-
 function TodoListItem(props) {
   console.log(props);
-  const { todo: { id, text } } = props;
+  const { todo: { id, value: { title, text } } } = props;
 
   return (
     <TodoListItemWrapper>
       <TodoListItemContainer>
-        <h3 className='todolistitem-title'>{text}</h3>
+        <h3 className='todolistitem-title'>{title}</h3>
         <button className='todolistitem-important-btn'><MdStarOutline /></button>
       </TodoListItemContainer>
+        <p>{text}</p>
         
     </TodoListItemWrapper>
   );

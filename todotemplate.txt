@@ -1,0 +1,11 @@
+      <AppContainer>
+        <AppTitle>
+          My Todo List
+        </AppTitle>
+        <AppButton>
+          <Button title={<MdOutlineModeEdit />} onClick={handleWriteClick} >
+          {isTodoInsert && <TodoInsert />}
+          </Button>
+          <Button title={<MdDateRange />}></Button>
+        </AppButton>
+      </AppContainer>
