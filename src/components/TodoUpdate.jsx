@@ -36,34 +36,35 @@ const StyledTextarea = styled.textarea`
   font-size: 16px;
 `;
 
-function TodoAdd(props) {
+function TodoUpdate(props) {
+  const { id, title, text, onUpdate} = props;
+
   const [isClose, setIsClose] = useState(true);
-  const [values, setValues] = useState({
-    title: '',
-    text: '',
-    date: 0
+  const [updateValues, setUpdateValues] = useState({
+    id: id,
+    updateTitle: title,
+    updateText: text
   });
+  const [date, setDate] = useState(0);
 
-  const { title, text, date } = values; 
+  const { updateTitle, updateText } = updateValues; 
 
-  const handle = (e) => {
+  const handleUpdate = (e) => {
     const { name, value } = e.target
 
-    setValues((prevValues) => ({
-      ...prevValues,
+    setUpdateValues((updateValues) => ({
+      ...updateValues,
       [name]: value,
     }));
   }
-
-  const { onAdd } = props;
 
   const handleCloseClick = () => {
     setIsClose(false)
   };
 
-  const handleSubmit = () => {
-    onAdd(values);
-    setIsClose(false)
+  const handleUpdateSubmit = () => {
+    onUpdate(updateValues);
+    setIsClose(false);
   }
 
   return (
@@ -73,27 +74,26 @@ function TodoAdd(props) {
         <button className='addclose-btn' onClick={handleCloseClick}>닫기</button>
         <StyledInput 
           type='text'
-          name='title'
-          placeholder='제목'
-          value={title}
-          onChange={handle}
+          name='updateTitle'
+          value={updateTitle}
+          onChange={handleUpdate}
         />
         <StyledTextarea 
           cols={30} 
           rows={20} 
-          value={text}
-          name='text'
-          onChange={handle}
+          name='updateText'
+          value={updateText}
+          onChange={handleUpdate}
         />
         <div>
           마감일
-          <input type="date" name='date' value={date} onChange={handle} />
+          <input type="date" value={date} />
         </div>
-        <button type='submit' onClick={handleSubmit}>추가하기</button>
+        <button type='submit' onClick={handleUpdateSubmit}>수정하기</button>
       </TodoAddContainer>
    }
    </>
   );
 }
 
-export default TodoAdd;
+export default TodoUpdate;

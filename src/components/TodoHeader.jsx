@@ -50,8 +50,8 @@ function TodoHeader(props) {
 
   const { onAdd } = props;
 
-  const handleCreateClick = () => {
-    setIsTodoInsert(!isTodoInsert)
+  const handleCreateClick = (e) => {
+    setIsTodoInsert(!isTodoInsert);
   }
 
   return (

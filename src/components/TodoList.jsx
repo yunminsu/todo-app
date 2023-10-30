@@ -10,11 +10,11 @@ const TodoListWrapper = styled.div`
 `;
 
 function TodoList(props) {
-  const { todos } = props
+  const { todos, setTodos, moveTodos, onUpdate, onRemove } = props
 
   return (
     <TodoListWrapper>
-      {todos.map(todo => <TodoListItem key={todo.id} todo={todo} /> )}
+      {todos.map(todo => <TodoListItem key={todo.id} todo={todo} setTodos={setTodos} moveTodos={moveTodos} onUpdate={onUpdate} onRemove={onRemove} /> )}
     </TodoListWrapper>
   );
 }
