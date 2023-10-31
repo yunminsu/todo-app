@@ -5,7 +5,7 @@ const TodoAddContainer = styled.div`
   width: 500px;
   margin: 0 auto;
   position: absolute;
-  top: 200px;
+  top: 300px;
   left: 0;
   right: 0;
   z-index: 99;
@@ -37,17 +37,17 @@ const StyledTextarea = styled.textarea`
 `;
 
 function TodoUpdate(props) {
-  const { id, title, text, onUpdate} = props;
+  const { id, title, text, date, onUpdate} = props;
 
   const [isClose, setIsClose] = useState(true);
   const [updateValues, setUpdateValues] = useState({
     id: id,
     updateTitle: title,
-    updateText: text
+    updateText: text,
+    updateDate: date
   });
-  const [date, setDate] = useState(0);
 
-  const { updateTitle, updateText } = updateValues; 
+  const { updateTitle, updateText, updateDate } = updateValues; 
 
   const handleUpdate = (e) => {
     const { name, value } = e.target
@@ -87,9 +87,9 @@ function TodoUpdate(props) {
         />
         <div>
           마감일
-          <input type="date" value={date} />
+          <input type="date" name='updateDate' value={updateDate} onChange={handleUpdate} />
         </div>
-        <button type='submit' onClick={handleUpdateSubmit}>수정하기</button>
+        <button type='submit' onClick={handleUpdateSubmit} disabled={updateTitle === '' ? true : false}>수정하기</button>
       </TodoAddContainer>
    }
    </>

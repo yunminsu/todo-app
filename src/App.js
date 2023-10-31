@@ -21,7 +21,6 @@ function App() {
   const nextId = useRef(1);
 
   const handleAdd = (value) => {
-    console.log(value);
     const todo = {
       id: uuidv4(),
       value
@@ -31,17 +30,34 @@ function App() {
 
     nextId.current += 1;
   }
+  
+  // 즐겨찾기(이동) 기능
+  const handleMove = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id));
+    setMoveTodos(moveTodos.concat(todos.filter(todo => todo.id === id)));
+  }
 
+  // 즐겨찾기 해제 기능
+  const handleUnMove = (id) => {
+    setMoveTodos(moveTodos.filter(todo => todo.id !== id));
+    setTodos(todos.concat(moveTodos.filter(todo => todo.id === id)));
+  }
+
+  // 삭제 기능
   const handleRemove = (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
+    setMoveTodos(moveTodos.filter(todo => todo.id !== id));
   };
 
+  // 수정 기능
   const handleUpdate = (value) => {
-    const { id, updateText, updateTitle } = value;
+    const { id, updateText, updateTitle, updateDate } = value;
     const copyTodos = [...todos]
     const targetIndex = todos.findIndex(todo => todo.id === id);
+    console.log(targetIndex);
     copyTodos[targetIndex].value.title = updateTitle;
     copyTodos[targetIndex].value.text = updateText;
+    copyTodos[targetIndex].value.date = updateDate;
     setTodos(copyTodos);
   }
 
@@ -49,7 +65,7 @@ function App() {
     <>
       <GlobalStyle />
       <TodoHeader onAdd={handleAdd} >
-        <TodoList todos={todos} setTodos={setTodos} moveTodos={moveTodos} onUpdate={handleUpdate} onRemove={handleRemove} />  
+        <TodoList todos={todos} setTodos={setTodos} moveTodos={moveTodos} onMove={handleMove} unMove={handleUnMove} onUpdate={handleUpdate} onRemove={handleRemove} />  
       </TodoHeader>
     </>
   );

@@ -12,7 +12,7 @@ const TodoHeaderWrapper = styled.div`
   `;
 
 const AppContainer = styled.div`
-  background: #D8CEF6;
+  background: #9F81F7;
   color: white;
   height: 100px;
   display: flex;
@@ -21,7 +21,7 @@ const AppContainer = styled.div`
 
 const AppTitle = styled.div`
   font-weight: bold;
-  font-size: 28px;
+  font-size: 36px;
   margin: 0 auto;
   align-self: center;
   text-shadow: 1px 0px black;
@@ -35,7 +35,7 @@ const AppButton = styled.div`
 `;
 
 const StyledButton = styled.button`
-  background: #D8CEF6;
+  background: #9F81F7;
   border: none;
   padding: 10px;
   font-size: 1.5rem;

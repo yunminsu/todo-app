@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { MdDelete, MdEditDocument, MdStarOutline } from 'react-icons/md';
+import { MdDelete, MdEditDocument, MdStar, MdStarOutline } from 'react-icons/md';
 import TodoAdd from './TodoAdd';
 import TodoHeader from './TodoHeader';
 import TodoUpdate from './TodoUpdate';
-import TodoMove from './TodoMove';
 
 const TodoListItemWrapper = styled.div`
   width: calc(30%);
@@ -14,6 +13,7 @@ const TodoListItemWrapper = styled.div`
   background: #f3f781;
   word-break: break-all;
   overflow-y: auto;
+  flex-shrink: 0;
 
   p {
     padding: 10px;
@@ -50,10 +50,11 @@ const TodoListItemWrapper = styled.div`
   } 
   `;
 
-function TodoListItem(props) {
+function TodoMove(props) {
+  console.log(props);
   const [isUpdate, setIsUpdate] = useState(false);
 
-  const { todo: { id, value: { title, text, date } }, onMove, onUpdate, onRemove } = props;
+  const { moveTodo: { id, value: { title, text, date } }, unMove, onUpdate, onRemove } = props;
 
   const handleUpdateClick = () => {
     setIsUpdate(!isUpdate);
@@ -70,8 +71,8 @@ function TodoListItem(props) {
     <>
     <TodoListItemWrapper>
       <TodoListItemContainer>
-        <h3 className='todolistitem-title'>{title}{date ? `(D-${dDay})` : ''}</h3>
-        <button className='todolistitem-important-btn' onClick={() => onMove(id)}><MdStarOutline /></button>
+        <h3 className='todolistitem-title'>{title}(D-{dDay})</h3>
+        <button className='todolistitem-important-btn' onClick={() => unMove(id)}><MdStar /></button>
         <button className='todolistitem-important-btn' onClick={handleUpdateClick}>
             <MdEditDocument />
         </button>
@@ -80,8 +81,8 @@ function TodoListItem(props) {
       </TodoListItemContainer>
         <p>{text}</p>
     </TodoListItemWrapper>
-  </>
+    </>
   );
 }
 
-export default TodoListItem;
+export default TodoMove;

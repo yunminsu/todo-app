@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TodoListItem from './TodoListItem';
+import TodoMove from './TodoMove';
 
 const TodoListWrapper = styled.div`
   min-height: 600px;
@@ -9,12 +10,30 @@ const TodoListWrapper = styled.div`
   background: white;
 `;
 
+const TodoListContainer = styled.div`
+  display: flex;
+  overflow-x: auto;
+`;
+
+const TodoMoveTitle = styled.div`
+  width: 100%;
+  height: 20px;
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  background: yellow;
+`;
+
 function TodoList(props) {
-  const { todos, setTodos, moveTodos, onUpdate, onRemove } = props
+  const { todos, setTodos, moveTodos, onMove, unMove, onUpdate, onRemove } = props
 
   return (
     <TodoListWrapper>
-      {todos.map(todo => <TodoListItem key={todo.id} todo={todo} setTodos={setTodos} moveTodos={moveTodos} onUpdate={onUpdate} onRemove={onRemove} /> )}
+      <TodoListContainer>
+        {moveTodos.map(moveTodo => <TodoMove key={moveTodo.id} moveTodo={moveTodo} unMove={unMove} onUpdate={onUpdate} onRemove={onRemove} />)}
+      </TodoListContainer>
+      <br /><br />
+      {todos.map(todo => <TodoListItem key={todo.id} todo={todo} setTodos={setTodos} moveTodos={moveTodos} onMove={onMove} onUpdate={onUpdate} onRemove={onRemove} /> )}
     </TodoListWrapper>
   );
 }
